@@ -12,14 +12,15 @@
  * Fall 2018
  */
 
-
 package assignment3;
 import java.util.*;
 import java.io.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
     // static variables and constants only here.
+    private static List<String> dictionary;
 
     public static void main(String[] args) throws Exception {
 
@@ -40,9 +41,17 @@ public class Main {
     }
 
     public static void initialize() {
-        // initialize your static variables or constants here.
-        // We will call this method before running our JUNIT tests.  So call it
-        // only once at the start of main.
+        //Put the dictionary in alphabetical order
+        dictionary = makeDictionary().stream().sorted().collect(Collectors.toList());
+
+        /* TODO remove this
+         * only for testing, prints all of the pairs for the word "smart" since that was just the example they gave us
+         */
+        Graph g = new Graph(dictionary);
+        Node n = g.getNode("SMART");
+        for(Integer i : n.getPairs()){
+            System.out.println(dictionary.get(i));
+        }
     }
 
     /**
@@ -88,8 +97,10 @@ public class Main {
         Set<String> words = new HashSet<String>();
         Scanner infile = null;
         try {
-            infile = new Scanner (new File("five_letter_words.txt"));
-        } catch (FileNotFoundException e) {
+            //infile = new Scanner (new File("/assignment3/five_letter_words.txt"));
+            infile = new Scanner(Main.class.getClassLoader().getResourceAsStream
+                    ("five_letter_words.txt"));
+        } catch (Exception e /*FileNotFoundException e*/) {
             System.out.println("Dictionary File not Found!");
             e.printStackTrace();
             System.exit(1);
