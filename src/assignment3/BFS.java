@@ -4,15 +4,13 @@ import java.util.*;
 
 public class BFS {
 	private static Queue<String> wordQueue;
-	private static Stack<String> wordPath;
-	
+
 	static {
 		wordQueue = new LinkedList<>();
-		wordPath = new Stack<>();
 	}
 	
 	// Method uses BFS to find if the end word can be found through a word ladder from the start word
-	public static Stack<String> searchBFS(String start, String end, Graph graph) {
+	public static ArrayList<String> searchBFS(String start, String end, Graph graph) {
 		Map<String, String> paths = new HashMap<>();
 
 		Node word = graph.getNode(start);
@@ -35,19 +33,15 @@ public class BFS {
                         ArrayList<String> res = new ArrayList<>();
                         String key = s;
                         while(paths.containsKey(key)) {
-                            res.add(0, key);
+                            res.add(0, key.toLowerCase());
                             key = paths.get(key);
                         }
-                        res.add(0, start);
+                        res.add(0, start.toLowerCase());
 
-                        //TODO remove (debug)
-                        for(String string : res){
-                            System.out.println(string);
-                        }
-
+                        Main.printLadder(res);
                         //Reset nodes so they aren't marked as visited if BFS is called multiple times
                         graph.resetNodes();
-                        return wordPath;
+                        return res;
                     }
                 }
 				

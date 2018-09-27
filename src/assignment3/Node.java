@@ -31,10 +31,6 @@ public class Node {
     	return this.visited;
     }
 
-    public boolean isVisited(){
-        return visited;
-    }
-
     public String getValue(){
         return value;
     }

@@ -39,14 +39,6 @@ public class Graph {
 
             //Make sure the Node isn't isolated, i.e. no other words in the dictionary differ by only one character
             if(pairs != null) {
-                //Only used this to make sure the pairs it came up with were valid
-                /*System.out.println("Pairs for " + current + ":");
-                for(Integer integer : pairs){
-                    System.out.print(dictionary.get(integer) + ", ");
-                }
-                System.out.println();*/
-
-
                 nodes.add(new Node(current, pairs));
                 pairs.clear();
             }

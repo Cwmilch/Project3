@@ -39,7 +39,7 @@ public class Main {
         initialize();
 
         // TODO methods to read in words, output ladder
-        BFS.searchBFS("GAUZY", "STONE", g);
+        BFS.searchBFS("SMART", "ZINKY", g);
     }
 
     public static void initialize() {
@@ -87,7 +87,12 @@ public class Main {
 
 
     public static void printLadder(ArrayList<String> ladder) {
-
+        int ladderSize = ladder.size();
+        System.out.println("a " + (ladderSize - 2) + "-rung word ladder exists between "
+                + ladder.get(0) + " and " + ladder.get(ladderSize - 1) + ".");
+        for(String s : ladder){
+            System.out.println(s);
+        }
     }
     // TODO
     // Other private static methods here
