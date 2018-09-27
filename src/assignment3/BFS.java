@@ -1,10 +1,6 @@
 package assignment3;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class BFS {
 	private static Queue<String> wordQueue;
@@ -16,58 +12,51 @@ public class BFS {
 	}
 	
 	// Method uses BFS to find if the end word can be found through a word ladder from the start word
-	public static Stack<String> searchBFS(String start, String end, Graph dictionary) {
+	public static Stack<String> searchBFS(String start, String end, Graph graph) {
 		Map<String, String> paths = new HashMap<>();
-		Node word = dictionary.getNode(start);
-		
-		// Adds list of pairs to the queue for checking
-		for (int i = 0; i < word.getPairs().size(); i++) {
-			String value = dictionary.getDictionary().get(word.getPairs().get(i));
-			paths.put(value, start);
-			wordPath.push(value);
-			
-			if(dictionary.getNode(value) == null || dictionary.getNode(value).getVisited()) {
-				continue;
-			}
-			else if(value.equals(end)) {
-				String key = value;
-				while(paths.containsKey(key)) {
-					System.out.println(key);
-					key = paths.get(key);
-					
-				}
-				return wordPath;
-			}
-			
-			wordQueue.add(value);
-		}
+
+		Node word = graph.getNode(start);
+		word.setVisited(true);
+        wordQueue.add(start);
 		
 		while (!wordQueue.isEmpty()) {
 			String value = wordQueue.remove();
-			wordPath.push(value);
-			Node n = dictionary.getNode(value);
-			
+			Node n = graph.getNode(value);
+			n.setVisited(true);
 			for (int i = 0; i < n.getPairs().size(); i++) {
-				String s = dictionary.getDictionary().get(n.getPairs().get(i));
-				paths.put(s, value);
-				if(dictionary.getNode(s) == null || dictionary.getNode(s).getVisited()) {
+				String s = graph.getDictionary().get(n.getPairs().get(i));
+
+				Node toAdd = graph.getNode(s);
+				if(toAdd == null || toAdd.getVisited()) {
 					continue;
-				}
-				else if(s.equals(end)) {
-					String key = s;
-					while(paths.containsKey(key)) {
-						System.out.println(key);
-						key = paths.get(key);
-						
-					}
-					return wordPath;
-				}
+				}else{
+                    paths.put(s, value);
+                    if(s.equals(end)) {
+                        ArrayList<String> res = new ArrayList<>();
+                        String key = s;
+                        while(paths.containsKey(key)) {
+                            res.add(0, key);
+                            key = paths.get(key);
+                        }
+                        res.add(0, start);
+
+                        //TODO remove (debug)
+                        for(String string : res){
+                            System.out.println(string);
+                        }
+
+                        //Reset nodes so they aren't marked as visited if BFS is called multiple times
+                        graph.resetNodes();
+                        return wordPath;
+                    }
+                }
 				
 				wordQueue.add(s);
 			}
 		}
-		
-		return null;
+
+        graph.resetNodes();
+        return null;
 	}
 	
 }

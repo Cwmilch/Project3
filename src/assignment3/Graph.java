@@ -95,7 +95,7 @@ public class Graph {
      */
     private Node getNode(int min, int max, String nodeValue){
         if(max == min){
-            return null;
+            return nodes.get(min).getValue().equals(nodeValue) ? nodes.get(min) : null;
         }
 
         int mid = (max + min) / 2;
@@ -120,5 +120,11 @@ public class Graph {
     
     public List<String> getDictionary(){
     	return dictionary;
+    }
+
+    public void resetNodes(){
+        for(Node n : nodes){
+            n.setVisited(false);
+        }
     }
 }

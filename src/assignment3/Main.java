@@ -39,8 +39,7 @@ public class Main {
         initialize();
 
         // TODO methods to read in words, output ladder
-        while(g == null) {}
-        BFS.searchBFS("STONE", "MONEY", g);
+        BFS.searchBFS("GAUZY", "STONE", g);
     }
 
     public static void initialize() {
@@ -79,7 +78,6 @@ public class Main {
     }
 
     public static ArrayList<String> getWordLadderBFS(String start, String end) {
-
         // TODO some code
         Set<String> dict = makeDictionary();
         // TODO more code
