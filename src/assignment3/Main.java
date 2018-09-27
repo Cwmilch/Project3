@@ -39,6 +39,8 @@ public class Main {
         initialize();
 
         // TODO methods to read in words, output ladder
+        while(g == null) {}
+        BFS.searchBFS("STONE", "MONEY", g);
     }
 
     public static void initialize() {

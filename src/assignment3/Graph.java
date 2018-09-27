@@ -87,6 +87,7 @@ public class Graph {
 
     /**
      * Binary search to find the node that's associated with the given String.
+     * Searches the heads of each graph for each word in the dictionary
      * @param min lower boundary of range to search
      * @param max upper boundary of range to serach
      * @param nodeValue String associated with the Node to search for
@@ -102,7 +103,7 @@ public class Graph {
 
         int diff = n.getValue().toUpperCase().compareTo(nodeValue.toUpperCase());
         if(diff > 0){
-            return getNode(min, mid, nodeValue);
+            return getNode(min, mid - 1, nodeValue);
         }else if(diff < 0){
             return getNode(mid + 1, max, nodeValue);
         }
@@ -116,10 +117,8 @@ public class Graph {
     public ArrayList<Node> getNodes(){
         return nodes;
     }
-
-    public void resetNodeStatus(){
-        for(Node n : nodes){
-            n.setVisited(false);
-        }
+    
+    public List<String> getDictionary(){
+    	return dictionary;
     }
 }
