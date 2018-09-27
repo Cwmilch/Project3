@@ -21,9 +21,10 @@ public class Main {
 
     // static variables and constants only here.
     private static List<String> dictionary;
+    private static Graph g;
+
 
     public static void main(String[] args) throws Exception {
-
         Scanner kb;	// input Scanner for commands
         PrintStream ps;	// output file, for student testing and grading only
         // If arguments are specified, read/write from/to files instead of Std IO.
@@ -47,11 +48,7 @@ public class Main {
         /* TODO remove this
          * only for testing, prints all of the pairs for the word "smart" since that was just the example they gave us
          */
-        Graph g = new Graph(dictionary);
-        Node n = g.getNode("SMART");
-        for(Integer i : n.getPairs()){
-            System.out.println(dictionary.get(i));
-        }
+        g = new Graph(dictionary);
     }
 
     /**
@@ -65,12 +62,16 @@ public class Main {
     }
 
     public static ArrayList<String> getWordLadderDFS(String start, String end) {
-
+        ArrayList<String> ladder = new ArrayList<>();
         // Returned list should be ordered start to end.  Include start and end.
         // If ladder is empty, return list with just start and end.
-        // TODO some code
-        Set<String> dict = makeDictionary();
-        // TODO more code
+        Node startNode = g.getNode(start);
+
+        for(Integer integer : startNode.getPairs()){
+            if(dictionary.get(integer).equals(end)){
+                System.out.println("ABCD");
+            }
+        }
 
         return null; // replace this line later with real return
     }
@@ -97,6 +98,7 @@ public class Main {
         Set<String> words = new HashSet<String>();
         Scanner infile = null;
         try {
+            //TODO uncomment this line, wouldn't work on my laptop unless I did it the other way for some reason
             //infile = new Scanner (new File("/assignment3/five_letter_words.txt"));
             infile = new Scanner(Main.class.getClassLoader().getResourceAsStream
                     ("five_letter_words.txt"));

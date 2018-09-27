@@ -102,7 +102,7 @@ public class Graph {
 
         int diff = n.getValue().toUpperCase().compareTo(nodeValue.toUpperCase());
         if(diff > 0){
-            return getNode(min, mid - 1, nodeValue);
+            return getNode(min, mid, nodeValue);
         }else if(diff < 0){
             return getNode(mid + 1, max, nodeValue);
         }
@@ -115,5 +115,11 @@ public class Graph {
      */
     public ArrayList<Node> getNodes(){
         return nodes;
+    }
+
+    public void resetNodeStatus(){
+        for(Node n : nodes){
+            n.setVisited(false);
+        }
     }
 }
