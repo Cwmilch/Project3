@@ -21,6 +21,7 @@ public class Main {
 
     // static variables and constants only here.
     private static List<String> dictionary;
+    private static Graph g;
 
     public static void main(String[] args) throws Exception {
 
@@ -38,6 +39,8 @@ public class Main {
         initialize();
 
         // TODO methods to read in words, output ladder
+        while(g == null) {}
+        BFS.searchBFS("STONE", "MONEY", g);
     }
 
     public static void initialize() {
@@ -47,11 +50,7 @@ public class Main {
         /* TODO remove this
          * only for testing, prints all of the pairs for the word "smart" since that was just the example they gave us
          */
-        Graph g = new Graph(dictionary);
-        Node n = g.getNode("SMART");
-        for(Integer i : n.getPairs()){
-            System.out.println(dictionary.get(i));
-        }
+        g = new Graph(dictionary);
     }
 
     /**

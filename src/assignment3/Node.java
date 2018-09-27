@@ -26,6 +26,10 @@ public class Node {
     public void setVisited(boolean visited){
         this.visited = visited;
     }
+    
+    public boolean getVisited() {
+    	return this.visited;
+    }
 
     public String getValue(){
         return value;
