@@ -39,16 +39,24 @@ public class Main {
         initialize();
 
         // TODO methods to read in words, output ladder
-        BFS.searchBFS("SMART", "ZINKY", g);
+        String input = "";
+        while(!input.equals("/quit")){
+            if(!input.equals("")){
+                String[] words = input.split(" ");
+                printLadder(getWordLadderBFS(words[0].toUpperCase(), words[1].toUpperCase()));
+                input = "";
+            }
+
+            if(kb.hasNext()){
+                input = kb.nextLine();
+            }
+        }
     }
 
     public static void initialize() {
         //Put the dictionary in alphabetical order
         dictionary = makeDictionary().stream().sorted().collect(Collectors.toList());
 
-        /* TODO remove this
-         * only for testing, prints all of the pairs for the word "smart" since that was just the example they gave us
-         */
         g = new Graph(dictionary);
     }
 
@@ -63,35 +71,26 @@ public class Main {
     }
 
     public static ArrayList<String> getWordLadderDFS(String start, String end) {
-        ArrayList<String> ladder = new ArrayList<>();
         // Returned list should be ordered start to end.  Include start and end.
         // If ladder is empty, return list with just start and end.
-        Node startNode = g.getNode(start);
-
-        for(Integer integer : startNode.getPairs()){
-            if(dictionary.get(integer).equals(end)){
-                System.out.println("ABCD");
-            }
-        }
-
-        return null; // replace this line later with real return
+        return null;
     }
 
     public static ArrayList<String> getWordLadderBFS(String start, String end) {
-        // TODO some code
-        Set<String> dict = makeDictionary();
-        // TODO more code
-
-        return null; // replace this line later with real return
+        return BFS.searchBFS(start.toUpperCase(), end.toUpperCase(), g);
     }
 
 
     public static void printLadder(ArrayList<String> ladder) {
-        int ladderSize = ladder.size();
-        System.out.println("a " + (ladderSize - 2) + "-rung word ladder exists between "
-                + ladder.get(0) + " and " + ladder.get(ladderSize - 1) + ".");
-        for(String s : ladder){
-            System.out.println(s);
+        if(ladder.size() > 2){
+            int ladderSize = ladder.size();
+            System.out.println("a " + (ladderSize - 2) + "-rung word ladder exists between "
+                    + ladder.get(0) + " and " + ladder.get(ladderSize - 1) + ".");
+            for (String s : ladder) {
+                System.out.println(s);
+            }
+        }else{
+            System.out.println("no word ladder can be found between " + ladder.get(0) + " and " + ladder.get(1));
         }
     }
     // TODO
@@ -116,5 +115,9 @@ public class Main {
             words.add(infile.next().toUpperCase());
         }
         return words;
+    }
+
+    public static Graph getGraph(){
+        return g;
     }
 }
