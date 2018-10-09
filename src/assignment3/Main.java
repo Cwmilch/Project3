@@ -12,8 +12,6 @@
  * Fall 2018
  */
 
-package assignment3;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -41,6 +39,9 @@ public class Main {
 
         ArrayList<String> input = parse(kb);
         while (!input.isEmpty()) {
+            if (input.get(0).equals("/quit") || input.get(1).equals("/quit")) {
+                break;
+            }
             printLadder(getWordLadderBFS(input.get(0), input.get(1)));
             input = parse(kb);
         }
